@@ -44,6 +44,21 @@
             return true;
         }
     
+        function convertTemperature(temp, unit) {
+            let convertedTemp, unitName;
+            if (unit == "F") {
+                convertedTemp = temp * (9/5) + 32;
+                unitName = "Fahrenheit";
+            } else if (unit == "K") {
+                convertedTemp = temp + 273.15;
+                unitName = "Kelvin";
+            } else if (unit == "R") {
+                convertedTemp = temp * (4/5);
+                unitName = "Réaumur";
+            }
+            return { convertedTemp, unitName };
+        }
+    
         $(document).ready(function(){
             $("#convertBtn").click(function(){
                 var t = parseFloat($('#temp').val());
@@ -52,24 +67,11 @@
                 if (!validateTemperature(t)) {
                     return;
                 }
-			   
-			   var t1;
-			   var u1;
-			   
-			   if(u == "F"){
-					t1 = t * (9/5) + 32;
-					u1 = "Fahrenheit";
-			   }else if(u == "K"){
-					t1 =  t + 273.15;
-					u1 = "Réaumur";
-			   }else if(u == "R"){
-					t1 = t * (4/5);
-					u1 = "Kelvin";
-			   }
-			   
-			   alert("Temperature is "+t1+" in "+u1);
-			});
-		});
-	</script>
+    
+                let result = convertTemperature(t, u);
+                alert("Temperature is " + result.convertedTemp + " in " + result.unitName);
+            });
+        });
+    </script>
 </body>
 </html>
